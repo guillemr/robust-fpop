@@ -1,0 +1,123 @@
+---
+output: pdf_document
+---
+### Install the package
+
+You should first download the source code available at
+https://github.com/guillemr/robust-fpop.
+Once this is done you can build and compile the package.
+In command line on linux you can do this using:
+
+R CMD build robseg
+
+and then
+
+R CMD INSTALL robseg_2016.10.19.tar.gz
+
+### Load the package
+
+You can then load the package as follow.
+
+```{r load_the_package}
+require(robseg)
+```
+
+### Simple examples
+
+In this section we will illustrate the robseg function for the L2, biweight, L1 and Huber loss. As an example we will consider the simulation made in <cite>[1]</cite> using a student noise
+rather than a Gaussian noise.
+
+```{r simu_1}
+
+source("Simulation.R")
+i <- 1 ## there are 6 scenarios we take the first one
+dfree <- 6 ## degree of freedom of the Student noise
+## we recover the info of the first scenario
+Ktrue <- Simu[[i]]$Ktrue 
+bkptrue <- as.integer(Simu[[i]]$bkpPage29[-c(1, Ktrue+1)])
+signaltrue <-  Simu[[i]]$signal
+sigmatrue <- Simu[[i]]$sigma 
+
+## we simulate one profile
+set.seed(1)
+x.data <- signaltrue + rt(n=length(signaltrue), df=dfree)*sigmatrue
+```
+
+We estimate the variance using MAD.
+```{r variance_estimation}
+est.sd <- varDiff(x.data)
+```
+
+### Fpop (L2)
+We then run fpop with the L2 loss <cite>[1]</cite> fixing
+the penalty ($\lambda$) to $\log(n)$. In this example, some outlier data points are detected as segments.
+
+```{r fpop_L2}
+## run dynamic programming
+res.l2 <- Rob_seg.std(x.data/est.sd,  "L2", lambda=2*log(length(x.data)))
+## estimated changepoints 
+cpt <- res.l2$t.est[-length(res.l2$t.est)]
+
+## simple ploting of changes and smoothed profile
+plot(x.data/est.sd, pch=20, col="black")
+lines(res.l2$smt, col="red", lwd=2)
+abline(v=cpt, lty=2, col="blue")
+
+```
+
+
+### Robust Fpop (Huber)
+
+We then run fpop with the Huber loss fixing the penalty to $1.4\log(n)$ and with a threshold parameter
+of $1.345$.
+
+```{r fpop_Huber}
+## run dynamic programming
+res.hu <- Rob_seg.std(x.data/est.sd,  "Huber", lambda=1.4*log(length(x.data)), lthreshold=1.345)
+## estimated changepoints 
+cpt <- res.hu$t.est[-length(res.hu$t.est)]
+
+## simple ploting of changes and smoothed profile
+plot(x.data/est.sd, pch=20, col="black")
+lines(res.hu$smt, col="red", lwd=2)
+abline(v=cpt, lty=2, col="blue")
+
+```
+
+### Robust Fpop (Biweight)
+
+To run fpop with the biweight loss fixing the penalty to $2\log(n)$ and with a threshold parameter
+of $3$.
+
+```{r fpop_Biweight}
+## run dynamic programming
+res.ou <- Rob_seg.std(x.data/est.sd,  "Outlier", lambda=2*log(length(x.data)), lthreshold=3)
+## estimated changepoints 
+cpt <- res.ou$t.est[-length(res.ou$t.est)]
+
+## simple ploting of changes and smoothed profile
+plot(x.data/est.sd, pch=20, col="black")
+lines(res.ou$smt, col="red", lwd=2)
+abline(v=cpt, lty=2, col="blue")
+
+```
+
+### Robust Fpop (L1)
+
+We then run fpop with L1 loss fixing the penalty to $\log(n)$.
+In this example on segment is not detected : [1556 - 1597].
+
+```{r fpop_L1}
+## run dynamic programming
+res.l1 <- Rob_seg.std(x.data/est.sd,  "L1", lambda=1*log(length(x.data)))
+## estimated changepoints 
+cpt <- res.l1$t.est[-length(res.l1$t.est)]
+
+## simple ploting of changes and smoothed profile
+plot(x.data/est.sd, pch=20, col="black")
+lines(res.l1$smt, col="red", lwd=2)
+abline(v=cpt, lty=2, col="blue")
+
+```
+
+[1] Maidstone, Robert, et al. "On optimal multiple changepoint algorithms for large data." Statistics and Computing (2014): 1-15.)

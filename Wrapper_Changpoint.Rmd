@@ -59,7 +59,7 @@ res.l2 <- fpop_intern(x.data/est.sd,  test.stat="Normal", pen.value=2*log(length
 ## same thing with changepoint package
 library(changepoint)
 res.l2_ <- cpt.mean(x.data/est.sd, penalty="Manual", pen.value=2*log(length(x.data)), method="PELT")
-sum(res.l2$cpts != res.l2_@cpts)
+identical(res.l2$cpts, res.l2_@cpts)
 ## estimated changepoints 
 cpt <- res.l2$cpts[-length(res.l2$cpts)]
 
@@ -82,7 +82,7 @@ res.hu <- fpop_intern(x.data/est.sd,  test.stat="Huber", pen.value=1.4*log(lengt
 
 ## check that it returns the same as Rob_seg.std
 # res.hu_ <- Rob_seg.std(x.data/est.sd,  "Huber",  lambda=1.4*log(length(x.data)), lthreshold=1.345)
-# sum(res.hu$cpts != res.hu_$t.est)
+# identical(res.hu$cpts , res.hu_$t.est)
 ## end check
 
 ## estimated changepoints 
@@ -106,7 +106,7 @@ res.ou <- fpop_intern(x.data/est.sd,  test.stat="Outlier", pen.value=2*log(lengt
 
 ## check that it returns the same as Rob_seg.std
 # res.ou_ <- Rob_seg.std(x.data/est.sd,  "Outlier", lambda=2*log(length(x.data)), lthreshold=3)
-# sum(res.ou$cpts != res.ou_$t.est)
+# identical(res.ou$cpts , res.ou_$t.est)
 ## end check
 
 ## estimated changepoints 
@@ -129,7 +129,7 @@ In this example on segment is not detected : [1556 - 1597].
 res.l1 <- fpop_intern(x.data/est.sd,  test.stat="Laplace", pen.value=1*log(length(x.data)))
 ## check that it returns the same as Rob_seg.std
 # res.l1_ <- Rob_seg.std(x.data/est.sd,  "L1", lambda=1*log(length(x.data)))
-# sum(res.l1$cpts != res.l1_$t.est)
+# identical(res.l1$cpts , res.l1_$t.est)
 ## end check
 
 ## estimated changepoints 

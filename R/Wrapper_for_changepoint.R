@@ -77,7 +77,7 @@ data=c("signal",     "data",         "keep",
   "t.est",      "cpts",         "keep",
   "smt",        "smt.signal",   "keep",
   "out",        "out.position", "keep",
-  "K",          "nb.bkp",       "keep",
+  "K",          "nb.seg",       "keep",
   "method",     "method",       "keep",
   "test.stat",  "test.stat",    "keep",
   "minseglen",  "minseglen",    "keep"

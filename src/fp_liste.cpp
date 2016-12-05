@@ -17,7 +17,7 @@
    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include "liste.h"
+#include "fp_liste.h"
 //#include<iostream>
 //using namespace std;
 void Liste::getMin(double *min_, int *origine_, double *mean_){

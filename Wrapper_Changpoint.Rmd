@@ -57,6 +57,7 @@ the penalty ($\lambda$) to $\log(n)$. In this example, some outlier data points 
 res.l2 <- fpop_intern(x.data/est.sd,  test.stat="Normal", pen.value=2*log(length(x.data)))
 
 ## same thing with changepoint package
+library(changepoint)
 res.l2_ <- cpt.mean(x.data/est.sd, penalty="Manual", pen.value=2*log(length(x.data)), method="PELT")
 sum(res.l2$cpts != res.l2_@cpts)
 ## estimated changepoints 
@@ -78,8 +79,11 @@ of $1.345$.
 ```{r fpop_Huber}
 ## run dynamic programming
 res.hu <- fpop_intern(x.data/est.sd,  test.stat="Huber", pen.value=1.4*log(length(x.data)), lthreshold=1.345)
-res.hu_ <- Rob_seg.std(x.data/est.sd,  "Huber", lambda=1.4*log(length(x.data)), lthreshold=1.345)
-sum(res.hu$cpts != res.hu_$t.est)
+
+## check that it returns the same as Rob_seg.std
+# res.hu_ <- Rob_seg.std(x.data/est.sd,  "Huber",  lambda=1.4*log(length(x.data)), lthreshold=1.345)
+# sum(res.hu$cpts != res.hu_$t.est)
+## end check
 
 ## estimated changepoints 
 cpt <- res.hu$cpts[-length(res.hu$cpts)]
@@ -99,8 +103,12 @@ of $3$.
 ```{r fpop_Biweight}
 ## run dynamic programming
 res.ou <- fpop_intern(x.data/est.sd,  test.stat="Outlier", pen.value=2*log(length(x.data)), lthreshold=3)
-res.ou_ <- Rob_seg.std(x.data/est.sd,  "Outlier", lambda=2*log(length(x.data)), lthreshold=3)
-sum(res.ou$cpts != res.ou_$t.est)
+
+## check that it returns the same as Rob_seg.std
+# res.ou_ <- Rob_seg.std(x.data/est.sd,  "Outlier", lambda=2*log(length(x.data)), lthreshold=3)
+# sum(res.ou$cpts != res.ou_$t.est)
+## end check
+
 ## estimated changepoints 
 cpt <- res.ou$cpts[-length(res.ou$cpts)]
 
@@ -119,8 +127,11 @@ In this example on segment is not detected : [1556 - 1597].
 ```{r fpop_L1}
 ## run dynamic programming
 res.l1 <- fpop_intern(x.data/est.sd,  test.stat="Laplace", pen.value=1*log(length(x.data)))
-res.l1_ <- Rob_seg.std(x.data/est.sd,  "L1", lambda=1*log(length(x.data)))
-sum(res.l1$cpts != res.l1_$t.est)
+## check that it returns the same as Rob_seg.std
+# res.l1_ <- Rob_seg.std(x.data/est.sd,  "L1", lambda=1*log(length(x.data)))
+# sum(res.l1$cpts != res.l1_$t.est)
+## end check
+
 ## estimated changepoints 
 cpt <- res.l1$cpts[-length(res.l1$cpts)]
 

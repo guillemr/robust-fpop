@@ -1,2 +1,2 @@
 useDynLib(robseg)
-export(Rob_seg.std)
+export(Rob_seg.std, Rob_seg, fpop_intern)

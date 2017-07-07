@@ -135,12 +135,6 @@ res.l2 <- Rob_seg.std(x = x.data/est.sd,
                       loss = "L2", 
                       lambda=2*log(length(x.data)))
 
-## same thing with changepoint package and PELT
-res.l2_ <- cpt.mean(x.data/est.sd, penalty="Manual", 
-                    pen.value=2*log(length(x.data)), 
-                    method="PELT")
-sum(res.l2$t.est != res.l2_@cpts)
-
 ## estimated changepoints 
 cpt <- res.l2$t.est[-length(res.l2$t.est)]
 

@@ -61,7 +61,7 @@ tmp.res$minseglen <- 1
 ################################################################################
 
 ##
-link.param <- matrix(nc=3, byrow=T,
+link.param <- matrix(ncol=3, byrow=T,
 data=c("signal",     "data",         "keep",
   "n",          "n",            "discard",
   "lambda",     "pen.value",    "keep",

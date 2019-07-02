@@ -61,7 +61,7 @@ void Liste::add(double X_, double lthrs_, double rthrs_, double lslope, double r
 	// add left //
 	bool aL = true;
 	aL = (Current->cFunc)->addLeft(lBorder, la0, la1);
-	while(aL & Current-> next != NULL)
+	while(aL & (Current-> next != NULL) )
 	{
 		Current = Current->next;
 		aL = (Current->cFunc)->addLeft(lBorder, la0, la1);	
@@ -93,7 +93,7 @@ void Liste::add(double X_, double lthrs_, double rthrs_, double lslope, double r
 	// add polynomial part (center part) //
 	bool aC = true;
 	aC = (Current->cFunc)->addCenter(rBorder, a0, a1, a2);
-	while(aC & Current-> next != NULL)
+	while(aC & (Current-> next != NULL) )
 	{
 		Current = Current->next;
 		aC = (Current->cFunc)->addCenter(rBorder, a0, a1, a2);	

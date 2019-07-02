@@ -2,9 +2,9 @@
 \alias{Rob_seg}
 \title{Rob seg}
 \description{Function calling the fpop algorithm with a loss function of the form
-\gamma(X_i, \mu) = (X-i-\mu)^2 if \mu \in [X_i -lthrs, X_i+rthres]
-\gamma(X_i, \mu) = lslope \mu + la0 if \mu \in ]mini, X_i -lthrs]
-\gamma(X_i, \mu) = rslope \mu + ra0 if \mu \in [X_i +lthrs, maxi]}
+\eqn{\gamma(X_i, \mu) = (X-i-\mu)^2} if \eqn{\mu \in [X_i -lthrs, X_i+rthres]}
+\eqn{\gamma(X_i, \mu) = lslope \mu + la0} if \eqn{\mu \in ]mini, X_i -lthrs]}
+\eqn{\gamma(X_i, \mu) = rslope \mu + ra0} if \eqn{\mu \in [X_i +lthrs, maxi]}}
 \usage{Rob_seg(x, lambda, lthreshold, rthreshold = lthreshold, lslope = 0, 
     rslope = -lslope, mini = min(x), maxi = max(x))}
 \arguments{

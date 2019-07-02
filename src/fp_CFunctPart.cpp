@@ -61,7 +61,7 @@ void CFunctPart::addRight(double a0_, double a1_){
 }
 
 double CFunctPart::min(){
-	if((a2 == 0)){
+	if( a2 == 0 ){
 		if(a1 == 0) return(a0);
 		else 
 		{

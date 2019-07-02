@@ -22,7 +22,7 @@ multiBinSeg <- function
           J.est = double(Kmax), 
           PACKAGE="robseg")
   ##A$Cost <- sum(geno^2) - sum(apply(geno, 2, sum)^2/nRow) + c(0, cumsum(A$RupturesCost))
-  A
+  return(A$t.est)
 ### return an object with the successive change-points found by binseg t.est and the L2 cost J.est
 }
 

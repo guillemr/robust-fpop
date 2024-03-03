@@ -39,7 +39,7 @@ public:
   }
 
   // Compute Min taking into account boundaries
-  void getMin(double *min_, int *origine_, double *mean_);
+  void getMin(double *min_, int *origine_, double *mean_, int *intervals_);
   //void getMean(double *min_, int *origine_, double *mean_);
   // add a new data point (leads to potential new elements...)
   void add(double X_, double lthrs_, double rthres_, double lslope, double rslope);

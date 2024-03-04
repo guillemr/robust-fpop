@@ -70,7 +70,7 @@ void Liste::add(double X_, double lthrs_, double rthrs_, double lslope, double r
 	//cout << "Border : " << lBorder << "," << rBorder << "then" << Current->cFunc->lBorder << "," << Current->cFunc->rBorder << "\n";
 	//}
 
-        if(Current->cFunc->rBorder != lBorder & Current->cFunc->lBorder < lBorder){
+        if((Current->cFunc->rBorder != lBorder) && (Current->cFunc->lBorder < lBorder)){
 		//cout << "Here1\n";
 		CFunctPart * newCFuncLeft = new CFunctPart(
 			Current->cFunc->a0, Current->cFunc->a1, Current->cFunc->a2,

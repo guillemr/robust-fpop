@@ -24,8 +24,8 @@
 
 class Liste {
 public:
-  CFunctPart *cFunc;
   Liste *next;
+  CFunctPart *cFunc;
   /* constructors and destructors */
   Liste()
   : next(NULL), cFunc(NULL) {}

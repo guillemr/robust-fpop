@@ -1,9 +1,10 @@
 Package: robseg
 Type: Package
 Title: Segmentation using functionnal pruning for robust losses
-Version: 2019.07.02
-Author:Guillem Rigaill
-Maintainer: Guillem Rigaill <rigaill@evry.inra.fr>
+Version: 2024.3.4
+Authors@R: c(
+  person("Guillem","Rigaill",        role=c("aut","cre"), email="rigaill@evry.inra.fr"),
+  person("Toby","Hocking",         role="ctb", comment = c(ORCID="0000-0002-3146-0865")))
 Description: A wrapper to a C implementation of robseg
 License: LGPL (>= 2.1)
 LazyData: TRUE

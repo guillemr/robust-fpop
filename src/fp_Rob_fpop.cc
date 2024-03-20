@@ -20,12 +20,14 @@
 #include "fp_Rob_fpop.h"
 //#include<iostream>
 //using namespace std;
-void rob_fpop(const double *profil, const int *nbi, const double *lambda_, 
-		const double *lthreshold_, const double *rthreshold_,
-		const double *lslope_, const double *rslope_,
-		const double *mini, const double *maxi, int *origine, double *cout_n, double *mean_n){
-
-
+void rob_fpop
+(const double *profil, const int *nbi, const double *lambda_, 
+ const double *lthreshold_, const double *rthreshold_,
+ const double *lslope_, const double *rslope_,
+ const double *mini, const double *maxi,
+ int *origine, double *cout_n, double *mean_n,
+ int *intervals
+ ){
 	int nb=*nbi;
 	double lambda = *lambda_;
 	double lthreshold = *lthreshold_;
@@ -37,40 +39,24 @@ void rob_fpop(const double *profil, const int *nbi, const double *lambda_,
 	double max=*maxi;
 
 
-	int minPosition=-10;
-	double minCurrent=100, meanCurrent=0.;
+	double minCurrent=-5;
 
 	
 	CFunctPart *iniFunc = new CFunctPart(min, max);
 	Liste * candidates = new Liste(iniFunc); 
  
-	candidates->add(profil[0], lthreshold, rthreshold, lslope, rslope);
-
-	// Initialize for -10, -1, -10 origine
-	//Liste * Current = candidates;
-	//while(Current != NULL){
-	//	if(Current->cFunc->a2 == 0){
-	//		Current->cFunc->origine=-10;		
-	//	}	
-	//	Current = Current->next;
-	//}
-	
-	//
-	candidates->getMin(&minCurrent, &minPosition, &meanCurrent);
 	cout_n[0] = minCurrent + lambda;
-	origine[0] = minPosition;
-	mean_n[0] = meanCurrent;
-	
-	for ( int t =1; t < nb; t++ ){
-		//cout << "Tour : " << t << "\n";
-		candidates->compare(cout_n[t-1], t);
-		candidates->mergeSimilarElements();	
-		candidates->add(profil[t], lthreshold, rthreshold, lslope, rslope);
-		candidates->mergeSimilarElements();
-		candidates->getMin(&minCurrent, &minPosition, &meanCurrent);
-		cout_n[t] = minCurrent + lambda;
-		origine[t] = minPosition;
-		mean_n[t] = meanCurrent;
+	for ( int t =0; t < nb; t++ ){
+	  if(t>0){
+	    candidates->compare(cout_n[t-1], t);
+	    candidates->mergeSimilarElements();
+	  }
+	  candidates->add(profil[t], lthreshold, rthreshold, lslope, rslope);
+	  if(t>0){
+	    candidates->mergeSimilarElements();
+	  }
+	  candidates->getMin(&minCurrent, origine+t, mean_n+t, intervals+t);
+	  cout_n[t] = minCurrent + lambda;
 	}
 
 	delete candidates;

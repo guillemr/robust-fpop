@@ -20,25 +20,23 @@
 #include "fp_liste.h"
 //#include<iostream>
 //using namespace std;
-void Liste::getMin(double *min_, int *origine_, double *mean_){
+void Liste::getMin(double *min_, int *origine_, double *mean_, int *intervals_){
 	
 	Liste* Current = this;	
 	min_[0] = Current->cFunc->min();
 	origine_[0] = Current->cFunc->origine;
 	mean_[0] = Current->cFunc->mean();
-	//cout << "St. Origine : " << origine_[0] << "Cost min : " << min_[0] << 
-	//"[" << Current->cFunc->lBorder <<  "," << Current->cFunc->rBorder << "]" << "\n";
+	intervals_[0] = 1;
 	double tmp=0.;
 	while(Current-> next != NULL){
 		Current = Current->next;
 		tmp = Current->cFunc->min();
-		//cout << "It. Origine : " << Current->cFunc->origine << "Cost min : " << tmp << 
-		//"[" << Current->cFunc->lBorder << "," << Current->cFunc->rBorder << "]" << "\n";
 		if(min_[0] > tmp){
 			min_[0] = tmp;
 			origine_[0] = Current->cFunc->origine;	
 			mean_[0] = Current->cFunc->mean();	
 		}
+		intervals_[0] += 1;
 	}
 }
 void Liste::add(double X_, double lthrs_, double rthrs_, double lslope, double rslope){
@@ -72,7 +70,7 @@ void Liste::add(double X_, double lthrs_, double rthrs_, double lslope, double r
 	//cout << "Border : " << lBorder << "," << rBorder << "then" << Current->cFunc->lBorder << "," << Current->cFunc->rBorder << "\n";
 	//}
 
-        if(Current->cFunc->rBorder != lBorder & Current->cFunc->lBorder < lBorder){
+        if((Current->cFunc->rBorder != lBorder) && (Current->cFunc->lBorder < lBorder)){
 		//cout << "Here1\n";
 		CFunctPart * newCFuncLeft = new CFunctPart(
 			Current->cFunc->a0, Current->cFunc->a1, Current->cFunc->a2,

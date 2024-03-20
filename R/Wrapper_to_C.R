@@ -26,7 +26,7 @@ maxi=max(x)
 		lthreshold=as.double(lthreshold), rthreshold=as.double(rthreshold),
 		lslope=as.double(lslope), rslope=as.double(rslope),
 		min=as.double(mini), max=as.double(maxi),
-		path=integer(n), cost=double(n) , mean=double(n)
+		path=integer(n), cost=double(n) , mean=double(n), intervals=integer(n)
 	, PACKAGE="robseg")
     A$t.est <- getPath(A$path, n)
     A$smt <- rep(A$mean[A$t.est], diff(c(0, A$t.est)))

@@ -26,7 +26,7 @@
 class CFunctPart {
      public:
      // coefficients a2 x^2 + a1 x^1 + a0 x^0
-     double a2, a1, a0;
+  double a0, a1, a2;
 
      // borders [lBorder, rBorder], roots etc...
      double lBorder, rBorder;
